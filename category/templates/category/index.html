@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+{% load staticfiles %}
+<head>
+    <link rel="shortcut icon" type="image/jpg" href="http://christophergreen.com/wp-content/uploads/2015/09/map-logo.jpg" />
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Venue Categories|Admin</title>
+	<!-- BOOTSTRAP STYLES-->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+<body>
+     
+           
+          
+    <div id="wrapper">
+         <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="adjust-nav">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">
+                        <img src="{% static 'img/logo.jpg' %}" />
+
+                    </a>
+                    <span class="logout-spn" >
+                         WELCOME TO UG CAMPUS MAPS
+                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                </span>
+                </div>
+              
+                <span class="logout-spn" >
+                  <a href='{% url "logout" %}' class="btn btn-primary btn-lg">LOGOUT <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a>
+                </span>
+
+            </div>
+        </div>
+        <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                 
+
+                    <li >
+                        <a href='{% url "home" %}'><i class="fa fa-qrcode "></i>HOME </a>
+                    </li>
+                    <li >
+                        <a href='{% url "events" %}'><i class="fa fa-desktop "></i>GENERAL EVENTS </a>
+                    </li>
+                    <li >
+                        <a href='{% url "examevents" %}'><i class="fa fa-desktop "></i>EXAM EVENTS </a>
+                    </li>
+                   
+
+                    <li class="active-link">
+                        <a href='{% url "categories" %}'><i class="fa fa-table "></i>VENUE CATEGORIES <span class="badge badge-success">P</span>  </a>
+                    </li>
+                    <li>
+                        <a href='{% url "venues" %}'><i class="fa fa-edit "></i>VENUES  </a>
+                    </li>
+                    <li>
+                        <a href='{% url "types" %}'><i class="fa fa-edit "></i>EVENT TYPES  </a>
+                    </li>
+
+
+
+                    
+                </ul>
+                            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-lg-12">
+                     <h1>VENUE CATEGORIES</h1>
+                    </div>
+                </div>              
+                 <!-- /. ROW  -->
+                  <hr />
+                <div class="row">
+                    <div class="col-lg-12 ">
+                        <div class="alert alert-info">
+                             <strong>Welcome {{user}}.You Can Edit or View Venue Categories Here</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             <a class="btn btn-primary" href='{% url "categories_create" %}' role="button">Create A Venue Category</a>
+                        </div>
+                       
+                    </div>
+                    </div>
+
+                <form class="form-inline">
+                    <div class="form-group mx-sm-3">
+      <input type="text" class="form-control"  placeholder="Search" name="q" method="GET" value="{{request.GET.q}}">
+  </div>
+  <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+
+                <br>
+
+                {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+                <br>
+
+                  <!-- /. ROW  -->
+              <ul class="list-group">
+{% for obj in objectlist %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center"><pre><h2>{{ obj.name|linebreaks }}</h2> Created {{obj.timestamp }}</pre><a href='{% url "categories_edit" id=obj.id %}' type="button" class="btn btn-primary btn-md">Edit</a>&nbsp;&nbsp;<a href='{% url "categories_delete" id=obj.id %}' type="button" class="btn btn-primary btn-md">Delete</a>
+
+{% endfor %}
+              </ul>
+                  <!-- /. ROW --->
+    </div>
+
+   
+          
+
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="{% static 'js/jquery-1.10.2.js' %}"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="{% static 'js/custom.js' %}"></script>
+    
+
+</body>
+</html>

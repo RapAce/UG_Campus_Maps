@@ -1,0 +1,529 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+{% load staticfiles %}
+<head>
+	<link rel="shortcut icon" type="image/jpg" href="http://christophergreen.com/wp-content/uploads/2015/09/map-logo.jpg" />
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>UG Campus Events</title>
+
+
+
+	<!-- Google Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,400italic|Roboto:400,300,700' rel='stylesheet' type='text/css'>
+	<!-- Animate -->
+	<link rel="stylesheet" href="static/css/animate.css">
+	<!-- Icomoon -->
+	<link rel="stylesheet" href="static/css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="static/css/bootstrap.css">
+
+	<link rel="stylesheet" href="static/css/style.css">
+
+
+	<!-- Modernizr JS -->
+	<script src="static/js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="static/js/respond.min.js"></script>
+	<![endif]-->
+
+	</head>
+<nav class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+              <a class="navbar-brand" href="#"><strong>UG Campus Maps</strong></a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li ><a href='{% url "index" %}'>General Events</a></li>
+              <li class="active"><a href='{% url "exam_index" %}'>Exam Events</a></li>
+              <li><a href="#">More Events........</a></li>
+
+
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+
+	<body>
+	<div id="fh5co-offcanvas">
+		<a href="#" class="fh5co-close-offcanvas js-fh5co-close-offcanvas"><span><i class="icon-cross3"></i> <span>Close</span></span></a>
+		<div class="fh5co-bio">
+			<figure>
+				<img src="http://christophergreen.com/wp-content/uploads/2015/09/map-logo.jpg" alt="Free HTML5 Bootstrap Template" class="img-responsive">
+			</figure>
+			<h3 class="heading">About</h3>
+			<h2>UG Campus Maps</h2>
+			<p>A web and mobile application to give directions to venues and notifications about events that would be happening on Univerity Of Ghana campus </p>
+			<ul class="fh5co-social">
+				<li><a href="#"><i class="icon-twitter"></i></a></li>
+				<li><a href="#"><i class="icon-facebook"></i></a></li>
+				<li><a href="#"><i class="icon-instagram"></i></a></li>
+			</ul>
+		</div>
+
+		<div class="fh5co-menu">
+			<div class="fh5co-box">
+				
+			</div>
+			<div class="fh5co-box">
+				<h3 class="heading">Search</h3>
+				<form action="#">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search For An Event" name="q" method="GET" value="{{request.GET.q}}" >
+						<button type="submit" class="btn btn-primary">Search</button>
+					</div>
+				</form>
+				<h3 class="heading">Search For an Exam on a Particular Day</h3>
+				<form action="#">
+					<div class="form-group">
+						<input type="date" class="form-control" name="q2" method="GET" value="{{request.GET.q2}}" >
+						<button type="submit" class="btn btn-primary">Search</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- END #fh5co-offcanvas -->
+	<header id="fh5co-header">
+		
+		<div class="container-fluid">
+
+			<div class="row">
+				<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+				<ul class="fh5co-social">
+				
+				</ul>
+				<div class="col-lg-12 col-md-12 text-center">
+					<h1 id="fh5co-logo"><a href=""><strong>Examinations</strong></a></h1>
+					<h3><strong>Examinations In University Of Ghana</strong></h3>
+				</div>
+
+			</div>
+		
+		</div>
+
+	</header>
+	<!-- END #fh5co-header -->
+	<div class="container-fluid">
+		<div class="row fh5co-post-entry">
+			
+			{% for obj in objectlist %}
+			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
+				<figure>
+					<a href='{% url "exam_details" id=obj.id %}'><img src="{{ obj.venue.imageurl }}" alt="Image" class="img-responsive"></a>
+				</figure>
+				<span class="fh5co-meta"> <a href='{% url "exam_details" id=obj.id %}'><strong>{{ obj.venue.name }}</strong>  </a></span>
+				<h2 class="fh5co-article-title"> <a href='{% url "exam_details" id=obj.id %}'>{{obj.coursetitle}}</a> </h2>
+                <h3 class="fh5co-article-title"> <a href='{% url "exam_details" id=obj.id %}'>{{obj.coursecode}}</a> </h3>
+                <h4 class="fh5co-article-title"> <a href='{% url "exam_details" id=obj.id %}'>{{obj.department}}</a> </h4>
+				<span class="fh5co-meta fh5co-date"><strong>On {{ obj.date }}</strong></span>
+
+			</article>
+			{% if forloop.counter is 2 %}
+			        <div class="clearfix visible-xs-block"></div>
+			      {% endif %}
+			{% if forloop.counter is 4 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 6 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 8 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 10 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 12 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 14 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 16 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 18 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 20 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 22 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 24 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 26 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 28 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 30 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 32 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 34 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 36 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 38 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 40 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 42 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 44 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 46 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 48 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 50 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 52 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 54 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 56 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 58 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 60 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 62 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 64 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 66 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 68 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 70 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 72 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 74 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 76 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 78 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 80 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 82 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 84 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 86 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 88 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 90 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 92 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 94 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 96 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 98 %}
+			        <div class="clearfix visible-xs-block"></div>
+			{% endif %}
+			{% if forloop.counter is 100 %}
+			       <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
+			{% endif %}
+
+
+
+
+
+			{% endfor %}
+
+
+			
+			
+
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+			<div class="clearfix visible-xs-block"></div>
+			
+			
+		</div>
+	</div>
+
+	<footer id="fh5co-footer">
+		<p><small>&copy; 2018.</small></p>
+	</footer>
+
+
+	
+	<!-- jQuery -->
+	<script src="static/js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="static/js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="static/js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="static/js/jquery.waypoints.min.js"></script>
+	<!-- Main JS -->
+<!--	<script src="static/js/main.js"></script> -->
+
+      <script>
+
+      ;(function () {
+
+	'use strict';
+
+
+
+	// iPad and iPod detection
+	var isiPad = function(){
+		return (navigator.platform.indexOf("iPad") != -1);
+	};
+
+	var isiPhone = function(){
+	    return (
+			(navigator.platform.indexOf("<i></i>Phone") != -1) ||
+			(navigator.platform.indexOf("iPod") != -1)
+	    );
+	};
+
+
+
+
+	// Click outside of offcanvass
+	var mobileMenuOutsideClick = function() {
+
+		$(document).click(function (e) {
+	    var container = $("#fh5co-offcanvas, .js-fh5co-close-offcanvas");
+	    if (!container.is(e.target) && container.has(e.target).length === 0) {
+
+	    	if ( $('#fh5co-offcanvas').hasClass('animated fadeInLeft') ) {
+
+    			$('#fh5co-offcanvas').addClass('animated fadeOutLeft');
+				setTimeout(function(){
+					$('#fh5co-offcanvas').css('display', 'none');
+					$('#fh5co-offcanvas').removeClass('animated fadeOutLeft fadeInLeft');
+				}, 1000);
+				$('.js-fh5co-nav-toggle').removeClass('active');
+
+	    	}
+
+
+	    }
+		});
+
+		$('body').on('click', '.js-fh5co-close-offcanvas', function(event){
+
+
+	  		$('#fh5co-offcanvas').addClass('animated fadeOutLeft');
+			setTimeout(function(){
+				$('#fh5co-offcanvas').css('display', 'none');
+				$('#fh5co-offcanvas').removeClass('animated fadeOutLeft fadeInLeft');
+			}, 1000);
+			$('.js-fh5co-nav-toggle').removeClass('active');
+
+	    	event.preventDefault();
+
+		});
+
+	};
+
+
+
+
+
+	// Burger Menu
+	var burgerMenu = function() {
+
+		$('body').on('click', '.js-fh5co-nav-toggle', function(event){
+
+			var $this = $(this);
+
+			$('#fh5co-offcanvas').css('display', 'block');
+			setTimeout(function(){
+				$('#fh5co-offcanvas').addClass('animated fadeInLeft');
+			}, 100);
+
+			// $('body').toggleClass('fh5co-overflow offcanvas-visible');
+			$this.toggleClass('active');
+			event.preventDefault();
+
+		});
+
+	};
+
+	var scrolledWindow = function() {
+
+		$(window).scroll(function(){
+
+			var header = $('#fh5co-header'),
+				scrlTop = $(this).scrollTop();
+
+
+		   $('#fh5co-home .flexslider .fh5co-overlay').css({
+				'opacity' : (.5)+(scrlTop/2000)
+		   });
+
+		   if ( $('body').hasClass('offcanvas-visible') ) {
+		   	$('body').removeClass('offcanvas-visible');
+		   	$('.js-fh5co-nav-toggle').removeClass('active');
+		   }
+
+		});
+
+		$(window).resize(function() {
+			if ( $('body').hasClass('offcanvas-visible') ) {
+		   	$('body').removeClass('offcanvas-visible');
+		   	$('.js-fh5co-nav-toggle').removeClass('active');
+		   }
+		});
+
+	};
+
+
+
+
+	// Page Nav
+	var clickMenu = function() {
+		var topVal = ( $(window).width() < 769 ) ? 0 : 58;
+
+		$(window).resize(function(){
+			topVal = ( $(window).width() < 769 ) ? 0 : 58;
+		});
+
+		if ( $(this).attr('href') != "#") {
+			$('#fh5co-main-nav a:not([class="external"]), #fh5co-offcanvas a:not([class="external"])').click(function(event){
+				var section = $(this).data('nav-section');
+
+
+				if ( $('div[data-section="' + section + '"]').length ) {
+
+					$('html, body').animate({
+			        	scrollTop: $('div[data-section="' + section + '"]').offset().top - topVal
+			    	}, 500);
+
+			   }
+			   event.preventDefault();
+
+			});
+		}
+
+
+
+
+	};
+
+
+	var contentWayPoint = function() {
+		var i = 0;
+		$('.animate-box').waypoint( function( direction ) {
+
+			if( direction === 'down' && !$(this.element).hasClass('animated') ) {
+
+				i++;
+
+				$(this.element).addClass('item-animate');
+				setTimeout(function(){
+
+					$('body .animate-box.item-animate').each(function(k){
+						var el = $(this);
+						setTimeout( function () {
+							el.addClass('fadeInUp animated');
+							el.removeClass('item-animate');
+						},  k * 200, 'easeInOutExpo' );
+					});
+
+				}, 100);
+
+			}
+
+		} , { offset: '85%' } );
+
+
+	};
+
+
+	// Document on load.
+	$(function(){
+
+		mobileMenuOutsideClick();
+		burgerMenu();
+		scrolledWindow();
+
+		// Animations
+		contentWayPoint();
+
+
+
+	});
+
+
+}());
+</script>
+	</body>
+</html>
+

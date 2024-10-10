@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+{% load staticfiles %}
+<head>
+    <link rel="shortcut icon" type="image/jpg" href="http://christophergreen.com/wp-content/uploads/2015/09/map-logo.jpg" />
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Venues|Admin</title>
+	<!-- BOOTSTRAP STYLES-->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+
+
+<body>
+     
+           
+          
+    <div id="wrapper">
+         <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="adjust-nav">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">
+                        <img src="{% static 'img/logo.jpg' %}" />
+
+                    </a>
+                    <span class="logout-spn" >
+                         WELCOME TO UG CAMPUS MAPS
+                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                </span>
+                </div>
+              
+                <span class="logout-spn" >
+                  <a href='{% url "logout" %}' class="btn btn-primary btn-lg">LOGOUT <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a>
+
+                </span>
+            </div>
+        </div>
+        <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                 
+
+                    <li >
+                        <a href='{% url "home" %}'><i class="fa fa-qrcode "></i>HOME </a>
+                    </li>
+                    <li >
+                        <a href='{% url "events" %}'><i class="fa fa-desktop "></i>GENERAL EVENTS </a>
+                    </li>
+                    <li >
+                        <a href='{% url "examevents" %}'><i class="fa fa-desktop "></i>EXAM EVENTS </a>
+                    </li>
+                   
+
+                    <li >
+                        <a href='{% url "categories" %}'><i class="fa fa-table "></i>VENUE CATEGORIES  </a>
+                    </li >
+                    <li class="active-link">
+                        <a href='{% url "venues" %}'><i class="fa fa-edit "></i>VENUES </a>
+                    </li>
+                    <li >
+                        <a href='{% url "types" %}'><i class="fa fa-edit "></i>EVENT TYPES </a>
+                    </li>
+
+
+
+                    
+                </ul>
+                            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-lg-12">
+                     <h2>CREATE A VENUE</h2>
+                    </div>
+                </div>              
+                 <!-- /. ROW  -->
+                  <hr />
+
+
+
+
+                <style>
+
+#pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+      }
+
+#pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+*{
+    box-sizing: border-box;
+}
+
+input[type=text], select, textarea{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+
+input[type=text]:focus
+{
+    border: 5px solid #03005c;
+}
+}
+</style>
+
+              <div class="row">
+                    <div class="col-lg-12">
+                        <h3>Choose A Location On The Map And Fill In The Information Below</h3>
+                        <h4>Please Choose A Venue Or Location Within The University Of Ghana</h4>
+                    </div>
+                </div>
+
+                <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+
+             <div id="map" style="width:100%;height:500px;"></div>
+
+                <br>
+
+                  <!-- /. ROW  -->
+              <form method='post' action=''>{% csrf_token %}
+                  {{form.as_p}}
+    <input type="submit" class="btn btn-primary" value="Enter">
+              </form>
+                  <!-- /. ROW --->
+    </div>
+
+   
+          
+
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="{% static 'js/jquery-1.10.2.js' %}"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="{% static 'js/custom.js' %}"></script>
+
+
+            <script src="{% static 'js/maps.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDmrRbYjaDO0AkLvkwQa5Bn4RBCE-HSRI&libraries=geometry,places&callback=myMap"></script>
+
+
+   
+</body>
+</html>
